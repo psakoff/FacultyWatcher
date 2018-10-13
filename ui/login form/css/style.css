@@ -1,15 +1,24 @@
 body {
-  background: #eee !important;
 }
 
 .wrapper {
-  margin-top: 80px;
-  margin-bottom: 80px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.navbar-brand{
+    color: white!important
+}
+.navbar-default{
+  width: 100%;
+    float: left;
+    background-color: darkblue;
 }
 
+
 .form-signin {
-  max-width: 380px;
-  padding: 15px 35px 45px;
+
+  max-width: 37em;
+  padding: 55px 65px 60px;
   margin: 0 auto;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
