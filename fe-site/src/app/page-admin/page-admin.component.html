@@ -1,0 +1,120 @@
+
+<meta charset="utf-8">
+<div class="container">
+  <div class="wrapper">
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+
+
+      <ul class="list-unstyled components">
+
+        <li>
+          <a (click)="openModal(template2)">Размещение расписания</a>
+        </li>
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+            Регистрация участников <span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item" (click)="openModal(template)">Регистрация студента</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="openModal(template1)">Регистрация преподавателя</a></li>
+          </ul>
+        </div>
+        <li>
+          <a href="#">Личные дела</a>
+        </li>
+        <li>
+          <a href="#">Выход</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+          <div class="navbar-header">
+            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+              <i class="glyphicon glyphicon-align-left"></i>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Заголовок модального окна -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Регистрация студента</h4>
+        </div>
+        <!-- Основное содержимое модального окна -->
+        <div class="modal-body">
+          Номер группы <input type="text" class="form-control" name="groupname"  required="" autofocus="" /><br>
+          номер билета <input type="text" class="form-control" name="id"  required="" autofocus="" /><br>
+          имя <input type="text" class="form-control" name="name" required="" autofocus="" /><br>
+          фамилия<input type="text" class="form-control" name="surname"  required="" autofocus="" /><br>
+        </div>
+        <!-- Футер модального окна -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+          <button type="button" class="btn btn-default" (click)="addStudent()">Сохранить изменения</button>
+        </div>
+      </div>
+    </div>
+</ng-template>
+
+<ng-template #template1>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Заголовок модального окна -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Регистрация преподавателя</h4>
+      </div>
+      <!-- Основное содержимое модального окна -->
+      <div class="modal-body">
+        читаемый курс <input type="text" class="form-control" name="speciality"  required="" autofocus="" /><br>
+        id <input type="text" class="form-control" name="id"  required="" autofocus="" /><br>
+        имя <input type="text" class="form-control" name="name" required="" autofocus="" /><br>
+        фамилия<input type="text" class="form-control" name="surname"  required="" autofocus="" /><br>
+      </div>
+      <!-- Футер модального окна -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+        <button type="button" class="btn btn-default" (click)="addTeacher()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template2>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Заголовок модального окна -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Добавление занятия</h4>
+      </div>
+      <!-- Основное содержимое модального окна -->
+      <div class="modal-body">
+       Предмет <input type="text" class="form-control" name="speciality"  required="" autofocus="" /><br>
+        Группа <input type="text" class="form-control" name="group"  required="" autofocus="" /><br>
+        Время <input type="text" class="form-control" name="time" required="" autofocus="" /><br>
+        Аудитория<input type="text" class="form-control" name="place"  required="" autofocus="" /><br>
+      </div>
+      <!-- Футер модального окна -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+        <button type="button" class="btn btn-default" (click)="addLesson()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

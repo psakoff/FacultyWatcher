@@ -1,0 +1,30 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+   FacultyWatcher
+  </h1>
+</div>
+
+<app-page
+  *ngIf="!isLogged"
+  (login)="isLogged = true"
+>
+</app-page>
+
+<div
+  class="container"
+  *ngIf="isLogged"
+>
+  <app-page-teacher></app-page-teacher>
+  <!--  <app-page-student></app-page-student>
+   <app-page-admin>
+    </app-page-admin>
+    -->
+</div>
+
+
+<router-outlet
+  *ngIf="isLogged"
+></router-outlet>
+
+
