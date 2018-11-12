@@ -3,4 +3,5 @@ export class teacher {
   name: string;
   surname: string;
   speciality: string;
+  password: string
 }

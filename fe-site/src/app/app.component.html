@@ -2,29 +2,35 @@
 <div style="text-align:center">
   <h1>
    FacultyWatcher
+    {{isLogged.role}}
   </h1>
 </div>
 
 <app-page
-  *ngIf="!isLogged"
-  (login)="isLogged = true"
+  *ngIf="(isLogged.role == 0)"
 >
 </app-page>
 
 <div
-  class="container"
-  *ngIf="isLogged"
 >
-  <app-page-teacher></app-page-teacher>
-  <!--  <app-page-student></app-page-student>
-   <app-page-admin>
-    </app-page-admin>
-    -->
+  <app-page-admin
+    *ngIf="(isLogged.role == 1)"
+  >
+  </app-page-admin>
+
+    <app-page-teacher
+      *ngIf="(isLogged.role == 2)"
+    ></app-page-teacher>
+      <app-page-student
+        *ngIf="(isLogged.role == 3)"
+      ></app-page-student>
+
+
 </div>
 
 
 <router-outlet
-  *ngIf="isLogged"
+  *ngIf="(isLogged.isLogged != 0)"
 ></router-outlet>
 
 

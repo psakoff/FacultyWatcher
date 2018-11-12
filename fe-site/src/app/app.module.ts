@@ -11,8 +11,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import {HttpService} from "./services/http.service";
 import { PageStudentComponent } from './page-student/page-student.component';
 import { PageTeacherComponent } from './page-teacher/page-teacher.component';
-
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {IsLogged} from "./services/Logged";
 @NgModule({
+
   declarations: [
     AppComponent,
     PageComponent,
@@ -22,6 +25,8 @@ import { PageTeacherComponent } from './page-teacher/page-teacher.component';
 
   ],
   imports: [
+    HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
@@ -29,7 +34,12 @@ import { PageTeacherComponent } from './page-teacher/page-teacher.component';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot()
   ],
-  providers: [HttpService],
+  providers: [
+    HttpService,
+    IsLogged
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

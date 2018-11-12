@@ -1,13 +1,23 @@
 
-
+<div>
     <form class="form-signin">
-      <h2 class="form-signin-heading">Please login</h2>
-      <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
+      <h2 class="form-signin-heading">Войдите в аккаунт</h2>
+      <input type="text" class="form-control" name="login" placeholder="Email Address" required="" autofocus="" />
       <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
       <button
         class="btn btn-lg btn-primary btn-block"
         type="submit"
-        (click)="emitLogin()"
-      >Login</button>
+        (click)="emitLogin(1)"
+      >Админ</button>
+      <button
+        class="btn btn-lg btn-primary btn-block"
+        type="submit"
+        (click)="emitLogin(2)"
+      >Учитель</button>
+      <button
+        class="btn btn-lg btn-primary btn-block"
+        type="submit"
+        (click)="emitLogin(3)"
+      >Студент</button>
     </form>
-
+</div>

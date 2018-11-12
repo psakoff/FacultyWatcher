@@ -1,5 +1,7 @@
-import {Component, EventEmitter, OnInit, Output, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {IsLogged} from "../services/Logged";
+import {HttpService} from "../services/http.service";
 
 
 @Component({
@@ -11,7 +13,19 @@ export class PageTeacherComponent implements OnInit {
 
   modalRef: BsModalRef;
   message: string;
-  constructor(private modalService: BsModalService) {}
+  private role: number;
+  students: any[];
+  teachers: any[];
+  lessons: any[];
+  constructor(private http: HttpService, private modalService: BsModalService,public isLogged:IsLogged) {
+    http.getStudents()
+      .subscribe(students => this.students = students);
+    http.getTeachers()
+      .subscribe(teachers => this.teachers = teachers);
+    http.getLessons()
+      .subscribe(lessons => this.lessons = lessons);
+    this.isLogged.role = isLogged.role;
+  }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
@@ -20,9 +34,11 @@ export class PageTeacherComponent implements OnInit {
     this.message = 'Declined!';
     this.modalRef.hide();
   }
-  singleModel = '1';
+  singleModel = '+';
 
-
+  emitLogout(a) {
+    this.isLogged.role = a;
+  }
   ngOnInit(): void {
   }
 }

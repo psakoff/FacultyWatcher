@@ -21,7 +21,7 @@
           <a (click)="openModal(changePass)">Аккаунт</a>
         </li>
         <li>
-          <a href="#">Выход</a>
+          <a (click)="emitLogout(0)">Выход</a>
         </li>
       </ul>
     </nav>
@@ -43,7 +43,7 @@
       </div>
       <!-- Основное содержимое модального окна -->
       <div class="modal-body">
-        Имя преподявателя <input type="text" class="form-control" name="groupname"  required="" autofocus="" /><br>
+        Имя преподявателя <input type="text" class="form-control" name="groupname" required="" autofocus=""/><br>
         <table class="table">
           <thead>
           <tr>
@@ -100,7 +100,7 @@
       </div>
       <!-- Основное содержимое модального окна -->
       <div class="modal-body">
-        Номер группы <input type="text" class="form-control" name="groupname"  required="" autofocus="" /><br>
+        Номер группы <input type="text" class="form-control" name="groupname" required="" autofocus=""/><br>
         <table class="table">
           <thead>
           <tr>
@@ -156,9 +156,9 @@
       </div>
       <!-- Основное содержимое модального окна -->
       <div class="modal-body">
-        Старый пароль <input type="text" class="form-control" name="old"  required="" autofocus="" /><br>
-        Новый пароль <input type="text" class="form-control" name="new"  required="" autofocus="" /><br>
-        Еще раз новый пароль <input type="text" class="form-control" name="repeat"  required="" autofocus="" /><br>
+        Старый пароль <input type="text" class="form-control" name="old" required="" autofocus=""/><br>
+        Новый пароль <input type="text" class="form-control" name="new" required="" autofocus=""/><br>
+        Еще раз новый пароль <input type="text" class="form-control" name="repeat" required="" autofocus=""/><br>
         <!-- Футер модального окна -->
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
@@ -241,19 +241,21 @@
           <tr>
             <th>№</th>
             <th>Имя</th>
+            <th>Фамилия</th>
             <th>пропуск</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <th scope="row"><a >кто-то там</a></th>
-            <th scope="row"><!--<pre class="card card-block card-header">{{singleModel}}</pre>
+          <tr *ngFor="let student of students">
+            <th scope="row">{{students.indexOf(student)+1}}</th>
+            <th scope="row">{{student.surname}}</th>
+            <th scope="row">{{student.name}}</th>
+            <th>
               <button type="button" class="btn btn-primary"
                       [(ngModel)]="singleModel" btnCheckbox
-                      btnCheckboxTrue="1" btnCheckboxFalse="0">
-              </button>--></th>
-
+                      btnCheckboxTrue="+" btnCheckboxFalse="-">
+                {{singleModel}}</button>
+            </th>
           </tr>
           <tr>
             <th scope="row">2</th>

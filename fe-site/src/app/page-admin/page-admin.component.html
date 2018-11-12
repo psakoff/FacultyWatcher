@@ -1,4 +1,3 @@
-
 <meta charset="utf-8">
 <div class="container">
   <div class="wrapper">
@@ -24,7 +23,8 @@
           <a href="#">Личные дела</a>
         </li>
         <li>
-          <a href="#">Выход</a>
+          <a (click)="emitLogout(0)"
+             >Выход</a>
         </li>
       </ul>
     </nav>
@@ -32,35 +32,21 @@
     <!-- Page Content Holder -->
     <div id="content">
 
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-
-          <div class="navbar-header">
-            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-              <i class="glyphicon glyphicon-align-left"></i>
-              <span></span>
-            </button>
-          </div>
-        </div>
-      </nav>
-    </div>
-  </div>
-</div>
 
 <ng-template #template>
     <div class="modal-dialog">
       <div class="modal-content">
         <!-- Заголовок модального окна -->
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
           <h4 class="modal-title">Регистрация студента</h4>
         </div>
         <!-- Основное содержимое модального окна -->
         <div class="modal-body">
-          Номер группы <input type="text" class="form-control" name="groupname"  required="" autofocus="" /><br>
-          номер билета <input type="text" class="form-control" name="id"  required="" autofocus="" /><br>
-          имя <input type="text" class="form-control" name="name" required="" autofocus="" /><br>
-          фамилия<input type="text" class="form-control" name="surname"  required="" autofocus="" /><br>
+          Номер группы <input type="text" class="form-control" name="groupname"  required="" autofocus=""  (change)="addStudentGroup = $event.target.value" /><br>
+          номер билета <input type="text" class="form-control" name="id"  required="" autofocus=""  (change)="addStudentId = $event.target.value" /><br>
+          имя <input type="text" class="form-control" name="name" required="" autofocus=""  (change)="addStudentName = $event.target.value" /><br>
+          фамилия<input type="text" class="form-control" name="surname"  required="" autofocus=""  (change)="addStudentSurname = $event.target.value"/><br>
         </div>
         <!-- Футер модального окна -->
         <div class="modal-footer">
@@ -76,7 +62,7 @@
     <div class="modal-content">
       <!-- Заголовок модального окна -->
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
         <h4 class="modal-title">Регистрация преподавателя</h4>
       </div>
       <!-- Основное содержимое модального окна -->
@@ -100,7 +86,6 @@
     <div class="modal-content">
       <!-- Заголовок модального окна -->
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title">Добавление занятия</h4>
       </div>
       <!-- Основное содержимое модального окна -->

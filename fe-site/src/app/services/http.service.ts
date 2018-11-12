@@ -10,7 +10,7 @@ export class HttpService {
   }
 
   getStudents(): Observable<any> {
-    return this.http.get('assets/students.json')
+    return this.http.get('api/students')
       .pipe(
         catchError(error => {
             alert('error');
@@ -18,14 +18,32 @@ export class HttpService {
         })
       );
   }
-
-  deleteStudent(id: string): Observable<any> {
-    return this.http.get('assets/students.json', {params: {id}})
+  getTeachers(): Observable<any> {
+    return this.http.get('api/teachers')
       .pipe(
         catchError(error => {
           alert('error');
           return Observable.throw(error);
         })
       );
+  }
+  getLessons(): Observable<any> {
+    return this.http.get('api/lessons')
+      .pipe(
+        catchError(error => {
+          alert('error');
+          return Observable.throw(error);
+        })
+      );
+  }
+
+  deleteStudent(id: string): Observable<any> {
+    return this.http.get('assets/students.json', {params: {id}})
+      // .pipe(
+      //   catchError(error => {
+      //     alert('error');
+      //     return Observable.throw(error);
+      //   })
+      // );
   }
 }
