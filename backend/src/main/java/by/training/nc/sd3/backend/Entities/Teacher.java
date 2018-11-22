@@ -1,10 +1,14 @@
 package by.training.nc.sd3.backend.Entities;
 
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
-
+@Entity
+@Table(name = "teacher")
 public class Teacher {
-    private String id;
+    @Id private int id;
     private String speciality ;
     private String name;
     private String surname;
@@ -13,19 +17,19 @@ public class Teacher {
     public Teacher() {
     }
 
-    public Teacher(String id, String name, String surname, String speciality) {
+    public Teacher(int id, String name, String surname, String speciality) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.speciality = speciality;
-        this.password = id;
+        this.password = ""+id;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -51,6 +55,13 @@ public class Teacher {
 
     public void setSpeciality (String speciality) {
         this.speciality = speciality;
+    }
+    public String getpassword() {
+        return password;
+    }
+
+    public void setPassword (String password) {
+        this.password = password;
     }
     @Override
     public boolean equals(Object o) {

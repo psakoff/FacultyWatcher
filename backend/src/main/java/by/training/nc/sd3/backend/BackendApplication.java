@@ -2,10 +2,11 @@ package by.training.nc.sd3.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories("by.training.nc.sd3.backend.Repository")
+@EnableJpaRepositories
 public class BackendApplication {
 
 	public static void main(String[] args) {

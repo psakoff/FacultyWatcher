@@ -3,6 +3,8 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {Import} from "@angular/compiler-cli/src/ngtsc/host";
 import {HttpService} from "../services/http.service";
 import {IsLogged} from "../services/Logged";
+import {student} from "../model/student";
+
 
 @Component({
   selector: 'app-page-admin',
@@ -12,7 +14,9 @@ import {IsLogged} from "../services/Logged";
 export class PageAdminComponent implements OnInit {
   @Output() login = new EventEmitter();
   message: string;
+  public editableStudent: student = new student();
   public students: any[];
+  public student1: student;
   public teachers: any[];
   public lessons: any[];
   public addStudentName: string;
@@ -43,17 +47,23 @@ export class PageAdminComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
+  createStudent(AddStudentId: )
   addStudent(): void {
-    const newStudent = {
-      id:  this.addStudentId,
-      name: this.addStudentName,
-      surname: this.addStudentSurname,
-      group: this.addStudentGroup,
-      password: this.addStudentId
-    }
 
-    this.students.push(newStudent);
-    this.modalRef.hide();
+      this.editableStudent.id= this.addStudentId;
+        this.editableStudent.name= this.addStudentName;
+      this.editableStudent.surname=this.addStudentSurname;
+      this.editableStudent.group= this.addStudentGroup;
+      this.editableStudent.password= ''+this.addStudentId;
+
+  //  this.editableStudent.id = newStudent.id;
+   // this.editableStudent.group = newStudent.group;
+   // this.editableStudent.name = newStudent.name;
+   // this.editableStudent.surname = newStudent.surname;
+  //  this.editableStudent.password = newStudent.id.toString();
+   this.students.push(this.editableStudent);
+  this.http.saveStudent(this.editableStudent).subscribe(()=>this.modalRef.hide());
+   // this.modalRef.hide()
   }
 
   addTeacher(): void {

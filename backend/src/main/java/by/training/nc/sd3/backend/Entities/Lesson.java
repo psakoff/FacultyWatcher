@@ -1,23 +1,38 @@
 package by.training.nc.sd3.backend.Entities;
 
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
-
+@Entity
+@Table(name = "lesson")
 public class Lesson {
-    private int time;
+    @Id
+   private int id;
     private int groupId;
-    private String name;
+    private String speciality;
+    private int time;
+
     private int place;
 
 
     public Lesson() {
     }
 
-    public Lesson(String name, int place, int groupId, int time) {
+    public Lesson(String speciality, int place, int groupId, int time,int id) {
+        this.id=id;
         this.time = time;
-        this.name = name;
+        this.speciality = speciality;
         this.place = place;
         this.groupId = groupId;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getTime() {
@@ -29,11 +44,11 @@ public class Lesson {
     }
 
     public String getName() {
-        return name;
+        return speciality;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String speciality) {
+        this.speciality = speciality;
     }
 
     public int getPlace() {
@@ -48,7 +63,7 @@ public class Lesson {
         return groupId;
     }
 
-    public void setGroupId (String email) {
+    public void setGroupId (int groupId) {
         this.groupId = groupId;
     }
     @Override
@@ -59,21 +74,21 @@ public class Lesson {
         return groupId == that.groupId &&
                 time == that.time &&
                 place == that.place &&
-                Objects.equals(name, that.name);
+                Objects.equals(speciality, that.speciality);
 
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(place, name, time, groupId);
+        return Objects.hash(place, speciality, time, groupId);
     }
 
     @Override
     public String toString() {
         return "lesson{" +
                 "   time=" + time +
-                ", name='" + name + '\'' +
+                ", name='" + speciality + '\'' +
                 ", place='" + place + '\'' +
                 ", groupId='" + groupId + '\'' +
                 '}';

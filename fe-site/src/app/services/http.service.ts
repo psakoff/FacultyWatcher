@@ -2,8 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {student} from "../model/student";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HttpService {
   constructor(private http: HttpClient) {
 
@@ -35,6 +38,9 @@ export class HttpService {
           return Observable.throw(error);
         })
       );
+  }
+  saveStudent(Student: student): Observable<student> {
+    return this.http.post<student>('/api/save/student', Student);
   }
 
   deleteStudent(id: string): Observable<any> {

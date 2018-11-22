@@ -1,4 +1,4 @@
-package filter;
+package by.taining.nc.sd3.Fapi.filter;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;

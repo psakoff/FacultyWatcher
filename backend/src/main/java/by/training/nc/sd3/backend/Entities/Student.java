@@ -1,31 +1,36 @@
 package by.training.nc.sd3.backend.Entities;
 
 
-import java.util.Objects;
+import javax.persistence.*;
 
+import java.util.Objects;
+@Entity
+@Table(name = "student")
 public class Student {
-    private String id;
-    private int groupId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
     private String surname;
     private String password;
+    @Column(name = "groupId") private int groupId;
 
     public Student() {
     }
 
-    public Student(String id, String name, String surname, int groupId) {
+    public Student(int id, String name, String surname,  String password, int groupId) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.groupId = groupId;
-        this.password = id;
+        this.password = password;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -33,7 +38,7 @@ public class Student {
         return name;
     }
 
-    public void setName(String address) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -41,7 +46,7 @@ public class Student {
         return surname;
     }
 
-    public void setSurname(String username) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
@@ -49,8 +54,16 @@ public class Student {
         return groupId;
     }
 
-    public void setGroupId (String email) {
+    public void setGroupId (int groupId) {
         this.groupId = groupId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     @Override
     public boolean equals(Object o) {
