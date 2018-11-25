@@ -47,23 +47,22 @@ export class PageAdminComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
-  createStudent(AddStudentId: )
   addStudent(): void {
-
-      this.editableStudent.id= this.addStudentId;
-        this.editableStudent.name= this.addStudentName;
-      this.editableStudent.surname=this.addStudentSurname;
-      this.editableStudent.group= this.addStudentGroup;
-      this.editableStudent.password= ''+this.addStudentId;
+      //
+      // this.editableStudent.id= this.addStudentId;
+      //   this.editableStudent.name= this.addStudentName;
+      // this.editableStudent.surname=this.addStudentSurname;
+      // this.editableStudent.group= this.addStudentGroup;
+      // this.editableStudent.password= ''+this.addStudentId;
 
   //  this.editableStudent.id = newStudent.id;
    // this.editableStudent.group = newStudent.group;
    // this.editableStudent.name = newStudent.name;
    // this.editableStudent.surname = newStudent.surname;
   //  this.editableStudent.password = newStudent.id.toString();
-   this.students.push(this.editableStudent);
-  this.http.saveStudent(this.editableStudent).subscribe(()=>this.modalRef.hide());
-   // this.modalRef.hide()
+  // this.students.push(this.editableStudent);
+ this.http.saveStudent(this.editableStudent).subscribe(()=>this.modalRef.hide());
+    this.modalRef.hide()
   }
 
   addTeacher(): void {

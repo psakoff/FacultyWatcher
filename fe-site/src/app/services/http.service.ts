@@ -13,7 +13,7 @@ export class HttpService {
   }
 
   getStudents(): Observable<any> {
-    return this.http.get('api/students')
+    return this.http.get('api/students/')
       .pipe(
         catchError(error => {
             alert('error');
@@ -22,7 +22,7 @@ export class HttpService {
       );
   }
   getTeachers(): Observable<any> {
-    return this.http.get('api/teachers')
+    return this.http.get('api/teachers/')
       .pipe(
         catchError(error => {
           alert('error');
@@ -31,7 +31,7 @@ export class HttpService {
       );
   }
   getLessons(): Observable<any> {
-    return this.http.get('api/lessons')
+    return this.http.get('api/lessons/')
       .pipe(
         catchError(error => {
           alert('error');
@@ -40,7 +40,7 @@ export class HttpService {
       );
   }
   saveStudent(Student: student): Observable<student> {
-    return this.http.post<student>('/api/save/student', Student);
+    return this.http.post<student>('/api/students/save/student', Student);
   }
 
   deleteStudent(id: string): Observable<any> {

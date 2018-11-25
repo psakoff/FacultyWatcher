@@ -43,15 +43,15 @@
         </div>
         <!-- Основное содержимое модального окна -->
         <div class="modal-body">
-          Номер группы <input type="text" class="form-control" name="groupname"  required="" autofocus=""  (change)="addStudentGroup = $event.target.value" /><br>
-          номер билета <input type="text" class="form-control" name="id"  required="" autofocus=""  (change)="addStudentId = $event.target.value" /><br>
-          имя <input type="text" class="form-control" name="name" required="" autofocus=""  (change)="addStudentName = $event.target.value" /><br>
-          фамилия<input type="text" class="form-control" name="surname"  required="" autofocus=""  (change)="addStudentSurname = $event.target.value"/><br>
+          Номер группы <input type="text" class="form-control" name="groupname"  required="" autofocus=""  [(ngModel)]="editableStudent.groupId" #groupId="ngModel" /><br>
+          номер билета <input type="text" class="form-control" name="id"  required="" autofocus=""  [(ngModel)]="editableStudent.id" #id="ngModel" [(ngModel)]="editableStudent.password" #password="ngModel"  /><br>
+          имя <input type="text" class="form-control" name="name" required="" autofocus=""  [(ngModel)]="editableStudent.name" #name="ngModel" /><br>
+          фамилия<input type="text" class="form-control" name="surname"  required="" autofocus=""  [(ngModel)]="editableStudent.surname" #surname="ngModel"/><br>
         </div>
         <!-- Футер модального окна -->
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
-          <button type="button" class="btn btn-default" (click)="addStudent()">Сохранить изменения</button>
+          <button type="button" class="btn btn-default" (click)="addStudent(id,groupId,name,surname,password)">Сохранить изменения</button>
         </div>
       </div>
     </div>

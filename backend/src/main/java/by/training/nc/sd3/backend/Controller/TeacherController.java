@@ -4,6 +4,7 @@ import by.training.nc.sd3.backend.Entities.Lesson;
 import by.training.nc.sd3.backend.Entities.Student;
 import by.training.nc.sd3.backend.Entities.Teacher;
 import by.training.nc.sd3.backend.Service.AccountService;
+import by.training.nc.sd3.backend.Service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,48 +13,38 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/students")
-public class Controller {
-
-    private AccountService service;
+@RequestMapping("/teachers")
+public class TeacherController {
+    private TeacherService service;
     @Autowired
-    public Controller(AccountService service) {
+    public TeacherController(TeacherService service) {
         this.service = service;
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Student> getStudentById(@PathVariable(name = "id") int id) {
-        Optional<Student> student = service.getStudentById(id);
-        if (student.isPresent()) {
-            return ResponseEntity.ok(student.get());
+    public ResponseEntity<Teacher> getTeacherById(@PathVariable(name = "id") int id) {
+        Optional<Teacher> teacher = service.getTeacherbyId(id);
+        if (teacher.isPresent()) {
+            return ResponseEntity.ok(teacher.get());
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-
-
-
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public Iterable<Student> getAllStudents() {
-            return service.getAllStudents();
-        }
+    public Iterable<Teacher> getAllTeachers() {
+        return service.getAllTeachers();
+    }
 
-
-
-
-    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
-    public Student saveStudent(@RequestBody Student account) {
-        return service.saveStudent(account);
+    @RequestMapping(value = "/save/",method = RequestMethod.POST)
+    public Teacher saveTeacher(@RequestBody Teacher account) {
+        return service.saveTeacher(account);
     }
 
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteStudent(@PathVariable(name = "id") int id) {
-        service.deleteStudent(id);
+    public ResponseEntity deleteTeacher(@PathVariable(name = "id") int id) {
+        service.deleteTeacher(id);
         return ResponseEntity.noContent().build();
     }
-
 }

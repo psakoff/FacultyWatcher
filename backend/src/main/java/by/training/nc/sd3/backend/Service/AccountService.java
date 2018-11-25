@@ -12,13 +12,5 @@ public interface AccountService {
     Optional<Student> getStudentById(int id);
     Iterable<Student> getAllStudents();
     void deleteStudent(int id);
-    Iterable<Teacher> getAllTeachers();
-    Optional<Teacher> getTeacherbyId(int id);
-    Teacher saveTeacher(Teacher account);
-    void deleteTeacher(int id);
-    Iterable<Lesson> getAllLessons();
-    Optional<Lesson>getLessonById(int Id);
-    Optional<Lesson>getLessonsByGroup(int groupId);
-    Lesson saveLesson(Lesson account);
-    void deleteLesson(int id);
+
 }

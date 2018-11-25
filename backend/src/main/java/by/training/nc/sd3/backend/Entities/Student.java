@@ -8,12 +8,11 @@ import java.util.Objects;
 @Table(name = "student")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String surname;
     private String password;
-    @Column(name = "groupId") private int groupId;
+    @Column(name = "group_id") private int groupId;
 
     public Student() {
     }
