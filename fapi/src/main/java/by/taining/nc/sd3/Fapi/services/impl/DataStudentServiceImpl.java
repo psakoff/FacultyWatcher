@@ -2,13 +2,16 @@ package by.taining.nc.sd3.Fapi.services.impl;
 import by.taining.nc.sd3.Fapi.services.DataStudentService;
 import by.taining.nc.sd3.Fapi.models.StudentModel;
 import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-@Service
+@Service(value = "DataStudentService")
 public class DataStudentServiceImpl implements DataStudentService {
 
     @Value("${backend.server.url}")
@@ -39,8 +42,23 @@ public class DataStudentServiceImpl implements DataStudentService {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendServerUrl + "/students/delete/" + id);
     }
+    @Override
+    public List<StudentModel> getStudentsByGroupId(int groupId) {
+        RestTemplate restTemplate = new RestTemplate();
+        StudentModel[] LessonModelResponse = restTemplate.getForObject(backendServerUrl + "/students/group/"+groupId, StudentModel[].class);
+        return LessonModelResponse == null ? Collections.emptyList() : Arrays.asList(LessonModelResponse);
+    }
 
-
-
+//    public List getAuthority() {
+//        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//    }
+//    public UserDetails loadUserByUsername(int id) throws UsernameNotFoundException {
+//        RestTemplate restTemplate = new RestTemplate();
+//        StudentModel user = restTemplate.getForObject(backendServerUrl + "/students/" + id, StudentModel.class);
+//        if (user == null) {
+//            throw new UsernameNotFoundException("Invalid username or password.");
+//        }
+//        return new org.springframework.security.core.userdetails.User((""+user.getId()), user.getPassword(), getAuthority());
+//    }
 }
 

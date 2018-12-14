@@ -1,5 +1,7 @@
 package by.taining.nc.sd3.Fapi.controller;
 
+import by.taining.nc.sd3.Fapi.models.AttendancyModel;
+import by.taining.nc.sd3.Fapi.models.LessonModel;
 import by.taining.nc.sd3.Fapi.models.TeacherModel;
 import by.taining.nc.sd3.Fapi.services.DataTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,17 @@ public class TeacherController {
         return ResponseEntity.ok(dataService.getAllTeachers());
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
     public ResponseEntity<TeacherModel> saveTeacher(@RequestBody TeacherModel teacher /*todo server validation*/) {
         if (teacher != null) {
             return ResponseEntity.ok(dataService.saveTeacher(teacher));
+        }
+        return null;
+    }
+    @RequestMapping(value = "/attendances",method = {RequestMethod.POST, RequestMethod.GET})
+    public ResponseEntity<AttendancyModel> setAttendancy(@RequestBody AttendancyModel account /*todo server validation*/) {
+        if (account != null) {
+            return ResponseEntity.ok(dataService.setAttendancy(account));
         }
         return null;
     }
@@ -35,5 +44,9 @@ public class TeacherController {
     @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)
     public ResponseEntity<TeacherModel> findTeacherById(@PathVariable int id) {
         return ResponseEntity.ok(dataService.getTeacherbyId(id));
+    }
+    @RequestMapping(value = "/find/attendances/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<AttendancyModel>> findLessonsByName(@PathVariable int id) {
+        return ResponseEntity.ok(dataService.getAttendancyById(id));
     }
 }

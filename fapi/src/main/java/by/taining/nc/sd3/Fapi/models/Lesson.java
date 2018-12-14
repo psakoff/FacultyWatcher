@@ -4,6 +4,7 @@ package by.taining.nc.sd3.Fapi.models;
 import java.util.Objects;
 
 public class Lesson {
+
     private int time;
     private int groupId;
     private String name;

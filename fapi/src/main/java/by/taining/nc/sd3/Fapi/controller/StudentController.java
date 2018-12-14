@@ -3,8 +3,12 @@ import by.taining.nc.sd3.Fapi.models.*;
 import by.taining.nc.sd3.Fapi.services.DataStudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+//import security.JwtTokenUtil;
 
 import java.util.List;
 @RestController
@@ -59,7 +63,19 @@ public class StudentController {
     public ResponseEntity<StudentModel> findStudentById(@PathVariable int id) {
         return ResponseEntity.ok(dataStudentService.getStudentbyId(id));
     }
+    @RequestMapping(value = "/find/group/{groupId}", method = RequestMethod.GET)
+    public ResponseEntity<List<StudentModel>> findStudentsByGroupId(@PathVariable int groupId) {
+        return ResponseEntity.ok(dataStudentService.getStudentsByGroupId(groupId));
+    }
 
-
+//    @Value("${jwt.header}")
+//    private String tokenHeader;
+//
+//    @Autowired
+//    private JwtTokenUtil jwtTokenUtil;
+//
+//    @Autowired
+//    @Qualifier("jwtUserDetailsService")
+//    private UserDetailsService userDetailsService;
 
 }

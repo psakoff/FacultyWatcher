@@ -21,7 +21,7 @@ public class LessonController {
         return ResponseEntity.ok(dataService.getAllLessons());
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
     public ResponseEntity<LessonModel> saveLesson(@RequestBody LessonModel lesson /*todo server validation*/) {
         if (lesson != null) {
             return ResponseEntity.ok(dataService.saveLesson(lesson));
@@ -42,6 +42,10 @@ public class LessonController {
     @RequestMapping(value = "/find/group/{groupId}", method = RequestMethod.GET)
     public ResponseEntity<List<LessonModel>> findLessonsByGroupId(@PathVariable int groupId) {
         return ResponseEntity.ok(dataService.getLessonsByGroup(groupId));
+    }
+    @RequestMapping(value = "/find/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity<List<LessonModel>> findLessonsByName(@PathVariable String name) {
+        return ResponseEntity.ok(dataService.getLessonsByName(name));
     }
 
 }

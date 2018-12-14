@@ -9,7 +9,7 @@ import java.util.Objects;
 @Table(name = "lesson")
 public class Lesson {
     @Id
-   private int id;
+    private int id;
     private int groupId;
     private String speciality;
     private int time;

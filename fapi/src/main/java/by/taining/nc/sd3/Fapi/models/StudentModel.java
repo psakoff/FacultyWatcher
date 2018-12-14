@@ -3,6 +3,8 @@ package by.taining.nc.sd3.Fapi.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Set;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StudentModel {
     @JsonProperty("id")
@@ -66,5 +68,14 @@ public class StudentModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "student{" +
+                "   id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", groupId='" + groupId + '\'' +
+                '}';
     }
 }

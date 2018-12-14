@@ -55,5 +55,13 @@ public class Controller {
         service.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
-
+    @RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Student>> getStudentsByGroupId(@PathVariable(name = "groupId") int id) {
+        Iterable<Student> students = service.getStudentsbyGroupId(id);
+        if (students != null) {
+            return ResponseEntity.ok(students);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

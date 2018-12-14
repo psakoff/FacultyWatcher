@@ -1,12 +1,19 @@
 package by.taining.nc.sd3.Fapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeacherModel {
+    @JsonProperty("id")
     private int id;
+    @JsonProperty("speciality")
     private String speciality ;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("surname")
     private String surname;
+    @JsonProperty("password")
     private String password;
 
         public TeacherModel() {

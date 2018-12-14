@@ -32,6 +32,12 @@ public class DataLessonServiceImpl implements DataLessonService {
         return LessonModelResponse == null ? Collections.emptyList() : Arrays.asList(LessonModelResponse);
     }
     @Override
+    public List<LessonModel> getLessonsByName(String Name) {
+        RestTemplate restTemplate = new RestTemplate();
+        LessonModel[] LessonModelResponse = restTemplate.getForObject(backendServerUrl + "/lessons/name/"+Name, LessonModel[].class);
+        return LessonModelResponse == null ? Collections.emptyList() : Arrays.asList(LessonModelResponse);
+    }
+    @Override
     public void deleteLesson(int id){
 
         RestTemplate restTemplate = new RestTemplate();

@@ -1,5 +1,6 @@
 package by.training.nc.sd3.backend.Controller;
 
+import by.training.nc.sd3.backend.Entities.Attendancy;
 import by.training.nc.sd3.backend.Entities.Lesson;
 import by.training.nc.sd3.backend.Entities.Student;
 import by.training.nc.sd3.backend.Entities.Teacher;
@@ -36,7 +37,7 @@ public class TeacherController {
         return service.getAllTeachers();
     }
 
-    @RequestMapping(value = "/save/",method = RequestMethod.POST)
+    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
     public Teacher saveTeacher(@RequestBody Teacher account) {
         return service.saveTeacher(account);
     }
@@ -46,5 +47,19 @@ public class TeacherController {
     public ResponseEntity deleteTeacher(@PathVariable(name = "id") int id) {
         service.deleteTeacher(id);
         return ResponseEntity.noContent().build();
+    }
+    @RequestMapping(value = "/attendances",method = {RequestMethod.POST, RequestMethod.GET})
+    public Attendancy setAttendancy(@RequestBody Attendancy account) {
+        return service.setAttendancy(account);
+    }
+
+    @RequestMapping(value = "/attendances/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Attendancy>> getAttendances(@PathVariable(name = "id") int id) {
+        Iterable<Attendancy> misses = service.getAttendancyById(id);
+        if (misses != null) {
+            return ResponseEntity.ok(misses);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

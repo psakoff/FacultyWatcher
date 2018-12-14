@@ -138,6 +138,14 @@ a.article, a.article:hover {
   background: #6d7fcc !important;
   color: #fff !important;
 }
+th{
+  border: 1px solid darkgray;
+  width: 5%;
+}
+.col-xs-6 {
+  text-align: center;
+}
+
 
 
 

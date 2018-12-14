@@ -8,6 +8,7 @@ public interface DataLessonService {
     List<LessonModel> getAllLessons();
     LessonModel getLessonbyId(int id);
     List<LessonModel> getLessonsByGroup(int groupId);
+    List<LessonModel> getLessonsByName(String Name);
     LessonModel saveLesson(LessonModel account);
     void deleteLesson(int id);
 }

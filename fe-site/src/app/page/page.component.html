@@ -2,22 +2,15 @@
 <div>
     <form class="form-signin">
       <h2 class="form-signin-heading">Войдите в аккаунт</h2>
-      <input type="text" class="form-control" name="login" placeholder="Email Address" required="" autofocus="" />
-      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
+      <input type="text" class="form-control" name="login" placeholder="Login" required="" autofocus=""
+             [(ngModel)]="login" />
+      <input type="password" class="form-control" name="password" placeholder="Password" required=""
+             [(ngModel)]="password"/>
       <button
         class="btn btn-lg btn-primary btn-block"
         type="submit"
-        (click)="emitLogin(1)"
-      >Админ</button>
-      <button
-        class="btn btn-lg btn-primary btn-block"
-        type="submit"
-        (click)="emitLogin(2)"
-      >Учитель</button>
-      <button
-        class="btn btn-lg btn-primary btn-block"
-        type="submit"
-        (click)="emitLogin(3)"
-      >Студент</button>
+        (click)="emitLogin()"
+      >Вход</button>
+      {{currentStudent.password}} {{password}}
     </form>
 </div>

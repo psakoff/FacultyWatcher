@@ -1,30 +1,73 @@
-<meta charset="utf-8">
+ <meta charset="utf-8">
 <div class="container">
   <div class="wrapper">
     <!-- Sidebar Holder -->
     <nav id="sidebar">
 
 
-      <ul class="list-unstyled components">
+      <ul *ngIf="(isLogged.role == 1)"  class="list-unstyled components">
 
         <li>
-          <a (click)="openModal(template2)">Размещение расписания</a>
+          <a (click)="openModal(template2);refreshData()">Размещение расписания</a>
         </li>
         <div class="btn-group" dropdown>
           <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
             Регистрация участников <span class="caret"></span>
           </button>
           <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li role="menuitem"><a class="dropdown-item" (click)="openModal(template)">Регистрация студента</a></li>
-            <li role="menuitem"><a class="dropdown-item" (click)="openModal(template1)">Регистрация преподавателя</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="openModal(template);refreshData()">Регистрация студента</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="openModal(template1);refreshData()">Регистрация преподавателя</a></li>
           </ul>
         </div>
         <li>
-          <a href="#">Личные дела</a>
+          <a (click)="openModal(template3);refreshData()">Личные дела</a>
         </li>
         <li>
           <a (click)="emitLogout(0)"
              >Выход</a>
+        </li>
+      </ul>
+
+      <ul *ngIf="(isLogged.role == 3)" class="list-unstyled components">
+
+        <li>
+          <a (click)="getAttendancyById(isLogged.currId);openModal(attendancy);refreshData()">Посещаемость</a>
+        </li>
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+            Расписание<span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item" (click)="openModal(teacherschedule);refreshData()">Расписание преподавателя</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="openModal(groupschedule);refreshData()">Расписание группы</a></li>
+          </ul>
+        </div>
+        <li>
+          <a (click)="openModal(changePass);refreshData()">Аккаунт</a>
+        </li>
+        <li>
+          <a (click)="emitLogout(0)">Выход</a>
+        </li>
+      </ul>
+
+      <ul *ngIf="(isLogged.role == 2)" class="list-unstyled components">
+        <li>
+          <a (click)="openModal(attendancyMod);refreshData();getLessonsBySpeciality(isLogged.currName)">Модерация посещаемости</a>
+        </li>
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+            Расписание<span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item" (click)="refreshData();openModal(teacherschedule)">Расписание преподавателя</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="openModal(groupschedule);refreshData()">Расписание группы</a></li>
+          </ul>
+        </div>
+        <li>
+          <a (click)="openModal(changePass);refreshData()">Аккаунт</a>
+        </li>
+        <li>
+          <a (click)="emitLogout(0)">Выход</a>
         </li>
       </ul>
     </nav>
@@ -67,15 +110,15 @@
       </div>
       <!-- Основное содержимое модального окна -->
       <div class="modal-body">
-        читаемый курс <input type="text" class="form-control" name="speciality"  required="" autofocus="" /><br>
-        id <input type="text" class="form-control" name="id"  required="" autofocus="" /><br>
-        имя <input type="text" class="form-control" name="name" required="" autofocus="" /><br>
-        фамилия<input type="text" class="form-control" name="surname"  required="" autofocus="" /><br>
+        Читаемый курс <input type="text" class="form-control" name="speciality"  required="" autofocus=""[(ngModel)]="editableTeacher.speciality" #speciality="ngModel" /><br>
+        id <input type="text" class="form-control" name="id"  required="" autofocus=""[(ngModel)]="editableTeacher.id" #id="ngModel" [(ngModel)]="editableTeacher.password" #password="ngModel"  /><br>
+        Имя <input type="text" class="form-control" name="name" required="" autofocus=""[(ngModel)]="editableTeacher.name" #name="ngModel" /><br>
+        фамилия<input type="text" class="form-control" name="surname"  required="" autofocus=""[(ngModel)]="editableTeacher.surname" #surname="ngModel" /><br>
       </div>
       <!-- Футер модального окна -->
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
-        <button type="button" class="btn btn-default" (click)="addTeacher()">Сохранить</button>
+        <button type="button" class="btn btn-default" (click)="addTeacher(speciality,id,name,surname,password)">Сохранить</button>
       </div>
     </div>
   </div>
@@ -90,16 +133,569 @@
       </div>
       <!-- Основное содержимое модального окна -->
       <div class="modal-body">
-       Предмет <input type="text" class="form-control" name="speciality"  required="" autofocus="" /><br>
-        Группа <input type="text" class="form-control" name="group"  required="" autofocus="" /><br>
-        Время <input type="text" class="form-control" name="time" required="" autofocus="" /><br>
-        Аудитория<input type="text" class="form-control" name="place"  required="" autofocus="" /><br>
+        <div class="col-xs-6">
+        Предмет <input type="text" class="form-control" name="speciality"  required="" autofocus=""[(ngModel)]="editableLesson.name" #name="ngModel" /><br>
+        Группа <input type="text" class="form-control" name="group"  required="" autofocus="" [(ngModel)]="editableLesson.groupId" #groupId="ngModel"/><br>
+        Аудитория<input type="text" class="form-control" name="place"  required="" autofocus="" [(ngModel)]="editableLesson.place" #place="ngModel"/><br>
+        Время<input type="text" class="form-control" name="time"  required="" autofocus="" [(ngModel)]="editableLesson.time" #place="ngModel"/><br>
+        </div>
+        <div class="col-xs-6">
+          <tabset>
+            <tab heading="Понедельник" id="tab2">
+              <tr  *ngFor="let lesson of lessons.filter(byMonday)">
+
+                <th scope="row">{{GetLessonTime(lesson.time)}}</th>
+                <th scope="row">{{lesson.name}}</th>
+                <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+              </tr>
+            </tab>
+            <tab heading="Вторник">
+              <tr  *ngFor="let lesson of lessons.filter(byTuesday)">
+
+                <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                <th scope="row">{{lesson.name}}</th>
+                <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+              </tr>
+            </tab>
+            <tab heading="Среда">
+              <tr  *ngFor="let lesson of lessons.filter(byWednesday)">
+
+                <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                <th scope="row">{{lesson.name}}</th>
+                <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+              </tr>
+            </tab>
+            <tab heading="Четверг">
+              <tr  *ngFor="let lesson of lessons.filter(byThursday)">
+
+                <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                <th scope="row">{{lesson.name}}</th>
+                <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+              </tr>
+            </tab>
+            <tab heading="Пятница">
+              <tr  *ngFor="let lesson of lessons.filter(byFriday)">
+
+                <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                <th scope="row">{{lesson.name}}</th>
+                <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+              </tr>
+            </tab>
+            <tab heading="Суббота"> <tr  *ngFor="let lesson of lessonsByName.filter(bySaturday)">
+
+              <th scope="row">{{GetLessonTime(lesson.time)}}</th>
+              <th scope="row">{{lesson.name}}</th>
+              <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+            </tr></tab>
+          </tabset>
+        </div>
       </div>
       <!-- Футер модального окна -->
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
-        <button type="button" class="btn btn-default" (click)="addLesson()">Сохранить</button>
+        <button type="button" class="btn btn-default" (click)="addLesson(name,groupId,Time,place)">Сохранить</button>
       </div>
     </div>
   </div>
 </ng-template>
+
+      <ng-template #template3>
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h4 class="modal-title">Личные дела</h4>
+            </div>
+            <div class="modal-body">
+              Введите номер студбилета<input type="text" [(ngModel)]="observableId"/><br>
+              <button type="button" class="btn btn-default" (click)="LookForStudent()">Найти</button>
+              {{observableStudent.name}} {{observableStudent.surname}}, группа {{observableStudent.groupId}}
+              <thead>
+              <tr>
+                <th>Предмет</th>
+                <th>Кол-во часов</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr *ngFor="let att of observableAttendances">
+                <th scope="row">{{att.subject_id}}</th>
+                <th scope="row">{{att.hours}}</th>
+              </tr>
+              </tbody>
+            </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+      <ng-template #teacherschedule>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+
+              <h4 class="modal-title">Расписание</h4>
+            </div>
+            <!-- Основное содержимое модального окна -->
+            <div class="modal-body">
+              Имя преподавателя <input type="text" [(ngModel)]="observableId"/><br>
+              <button type="button" class="btn btn-default" (click)="getTeachersTable();getLessonsBySpeciality(observableTeacher.speciality)">Найти</button>
+              {{observableTeacher.name}} {{observableTeacher.surname}}{{", Предмет "+observableTeacher.speciality}}
+              <tabset>
+                <tab heading="Понедельник" id="tab3">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                    <th>Группа</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byMonday)">
+
+                    <th scope="row">{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                    <th scope="row">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Вторник">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                    <th>Группа</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byTuesday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                    <th scope="row">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Среда">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                    <th>Группа</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byWednesday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                    <th scope="row">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Четверг">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                    <th>Группа</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byThursday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                    <th scope="row">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Пятница">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                    <th>Группа</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byFriday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                    <th scope="row">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Суббота">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                    <th>Группа</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByName.filter(bySaturday)">
+                  <th scope="row">{{GetLessonTime(lesson.time)}}</th>
+                  <th scope="row">{{lesson.name}}</th>
+                  <th scope="row">{{lesson.place}}</th>
+                  <th scope="row">{{lesson.groupId}}</th>
+                </tr></tab>
+              </tabset>
+            </div>
+            <!-- Футер модального окна -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #groupschedule>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+
+              <h4 class="modal-title">Расписание</h4>
+            </div>
+            <!-- Основное содержимое модального окна -->
+            <div class="modal-body">
+              Номер группы  <input type="text" [(ngModel)]="observableId"/><br>
+              <button type="button" class="btn btn-default" (click)="getLessonsByGroupId(observableId)">Найти</button>
+              <tabset>
+                <tab heading="Понедельник" id="tab3">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByGroup.filter(byMonday)">
+
+                    <th scope="row">{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Вторник">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByGroup.filter(byTuesday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Среда">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByGroup.filter(byWednesday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Четверг">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByGroup.filter(byThursday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Пятница">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByGroup.filter(byFriday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row">{{lesson.place}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Суббота">
+                  <thead>
+                  <tr>
+                    <th>Время</th>
+                    <th>Предмет</th>
+                    <th>Место</th>
+                  </tr>
+                  </thead>
+                  <tr  *ngFor="let lesson of lessonsByGroup.filter(bySaturday)">
+
+                  <th scope="row">{{GetLessonTime(lesson.time)}}</th>
+                  <th scope="row">{{lesson.name}}</th>
+                  <th scope="row">{{lesson.place}}</th>
+                </tr></tab>
+              </tabset>
+            </div>
+            <!-- Футер модального окна -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #changePass>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+              <h4 class="modal-title">Сменить пароль</h4>
+            </div>
+            <!-- Основное содержимое модального окна -->
+            <div class="modal-body">
+              Старый пароль <input type="text" class="form-control" name="old"  required="" autofocus=""[(ngModel)]="oldPass" /><br>
+              Новый пароль <input type="text" class="form-control" name="new"  required="" autofocus="" [(ngModel)]="newPass"/><br>
+              Еще раз новый пароль <input type="text" class="form-control" name="repeat"  required="" autofocus="" [(ngModel)]="newPass2"/><br>
+              <!-- Футер модального окна -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+                <button type="button" class="btn btn-primary" (click)="changePassword();emitLogout(0)">Сменить пароль</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #attendancy>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+              <h4 class="modal-title">Посещаемость</h4>
+            </div>
+            <!-- Основное содержимое модального окна -->
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Предмет</th>
+                  <th>Кол-во часов</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let att of observableAttendances">
+                  <th scope="row">{{att.subject_id}}</th>
+                  <th scope="row">{{att.hours}}</th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Футер модального окна -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #attendancyMod>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+              <h4 class="modal-title">Модерация посещаемости</h4>
+            </div>
+            <!-- Основное содержимое модального окна -->
+            <div class="modal-body">
+              <tabset>
+                <tab heading="Понедельник" id="tab1">
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byMonday)">
+
+                    <th scope="row">{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+                    </tr>
+                </tab>
+                <tab heading="Вторник">
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byTuesday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Среда">
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byWednesday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Четверг">
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byThursday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Пятница">
+                  <tr  *ngFor="let lesson of lessonsByName.filter(byFriday)">
+
+                    <th scope="row" >{{GetLessonTime(lesson.time)}}</th>
+                    <th scope="row">{{lesson.name}}</th>
+                    <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+                  </tr>
+                </tab>
+                <tab heading="Суббота"> <tr  *ngFor="let lesson of lessonsByName.filter(bySaturday)">
+
+                  <th scope="row">{{GetLessonTime(lesson.time)}}</th>
+                  <th scope="row">{{lesson.name}}</th>
+                  <th scope="row" (click)="openModal(grouplist);getStudentsByGroupId(lesson.groupId)">{{lesson.groupId}}</th>
+                </tr></tab>
+              </tabset>
+            </div>
+            <!-- Футер модального окна -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #grouplist>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+              <h4 class="modal-title">Модерация посещаемости</h4>
+            </div>
+            <!-- Основное содержимое модального окна -->
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Имя</th>
+                  <th>Фамилия</th>
+                  <th>пропуск</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let student of studentsByGroup">
+                  <th scope="row">{{student.id}}</th>
+                  <th scope="row">{{student.surname}}</th>
+                  <th scope="row">{{student.name}}</th>
+                  <th>
+
+                    <button type="button" class="btn btn-primary" (click)="saveAttendancyData(student,isLogged.currName);setAttendancy(editableAttendancy)">
+                            Отметить пропуск</button>
+                  </th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Футер модального окна -->
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #grouplist>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+              <h4 class="modal-title">Модерация посещаемости</h4>
+            </div>
+            <!-- Основное содержимое модального окна -->
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Имя</th>
+                  <th>Фамилия</th>
+                  <th>пропуск</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let student of studentsByGroup">
+                  <th scope="row">{{student.id}}</th>
+                  <th scope="row">{{student.surname}}</th>
+                  <th scope="row">{{student.name}}</th>
+                  <th>
+
+                    <button type="button" class="btn btn-primary" (click)="saveAttendancyData(student,isLogged.currName);setAttendancy(editableAttendancy);openModal(Student)">
+                      Отметить пропуск</button>
+                  </th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Футер модального окна -->
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #Student>
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h4 class="modal-title">Личные дела</h4>
+            </div>
+            <div class="modal-body">
+              <thead>
+              <tr>
+                <th>Предмет</th>
+                <th>Кол-во часов</th>
+              </tr>
+              </thead>
+              <tbody>
+              {{observableStudent.name}} {{observableStudent.surname}}, группа {{observableStudent.groupId}}
+              <tr *ngFor="let att of observableAttendances">
+                <th scope="row">{{att.subject_id}}</th>
+                <th scope="row">{{att.hours}}</th>
+              </tr>
+              </tbody>
+            </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div></div></div>

@@ -1,9 +1,17 @@
 package by.taining.nc.sd3.Fapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LessonModel {
+
+    @JsonProperty("time")
     private int time;
+    @JsonProperty("groupId")
     private int groupId;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("place")
     private int place;
 
 
@@ -45,7 +53,7 @@ public class LessonModel {
         return groupId;
     }
 
-    public void setGroupId (String email) {
+    public void setGroupId (int groupId) {
         this.groupId = groupId;
     }
 }
