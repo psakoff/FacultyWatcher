@@ -91,11 +91,30 @@
           имя <input type="text" class="form-control" name="name" required="" autofocus=""  [(ngModel)]="editableStudent.name" #name="ngModel" /><br>
           фамилия<input type="text" class="form-control" name="surname"  required="" autofocus=""  [(ngModel)]="editableStudent.surname" #surname="ngModel"/><br>
         </div>
+
         <!-- Футер модального окна -->
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
           <button type="button" class="btn btn-default" (click)="addStudent(id,groupId,name,surname,password)">Сохранить изменения</button>
         </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>№</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Группа</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let student of students">
+            <th scope="row">{{student.id}}</th>
+            <th scope="row">{{student.surname}}</th>
+            <th scope="row">{{student.name}}</th>
+            <th scope="row">{{student.groupId}}</th>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 </ng-template>
@@ -120,6 +139,24 @@
         <button type="button" class="btn btn-primary" (click)="decline()">Закрыть</button>
         <button type="button" class="btn btn-default" (click)="addTeacher(speciality,id,name,surname,password)">Сохранить</button>
       </div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>№</th>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Предмет</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let student of teachers">
+          <th scope="row">{{student.id}}</th>
+          <th scope="row">{{student.surname}}</th>
+          <th scope="row">{{student.name}}</th>
+          <th scope="row">{{student.speciality}}</th>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </ng-template>
@@ -137,7 +174,7 @@
         Предмет <input type="text" class="form-control" name="speciality"  required="" autofocus=""[(ngModel)]="editableLesson.name" #name="ngModel" /><br>
         Группа <input type="text" class="form-control" name="group"  required="" autofocus="" [(ngModel)]="editableLesson.groupId" #groupId="ngModel"/><br>
         Аудитория<input type="text" class="form-control" name="place"  required="" autofocus="" [(ngModel)]="editableLesson.place" #place="ngModel"/><br>
-        Время<input type="text" class="form-control" name="time"  required="" autofocus="" [(ngModel)]="editableLesson.time" #place="ngModel"/><br>
+        Время<br>(для ввода значения времени воспользуйтесь формулой:<br> Время = 5*[День]+[НомерПары])<input type="text" class="form-control" name="time"   [(ngModel)]="editableLesson.time" #place="ngModel"/><br>
         </div>
         <div class="col-xs-6">
           <tabset>
@@ -532,6 +569,7 @@
             </div>
             <!-- Основное содержимое модального окна -->
             <div class="modal-body">
+              Чтобы модерировать посещаемость, кликните на номер нужной вам группы
               <tabset>
                 <tab heading="Понедельник" id="tab1">
                   <tr  *ngFor="let lesson of lessonsByName.filter(byMonday)">

@@ -19,12 +19,18 @@ export class PageComponent implements OnInit {
   private currentStudent:Student;
   private currentTeacher:teacher;
   private currentAdmin: admin;
+  private currentName:string;
+  private currentSurname: string;
   private status:boolean = false;
   //@Output() login = new EventEmitter();
 
   constructor(public isLogged: IsLogged,private http: HttpService) {
     this.isLogged.role = 0;
     this.role = isLogged.role;
+    this.isLogged.currentName = "";
+    this.isLogged.currentSurname = "";
+    this.currentName=isLogged.currentName;
+    this.currentSurname=isLogged.currentSurname;
   }
 
   ngOnInit() { }
@@ -41,10 +47,12 @@ export class PageComponent implements OnInit {
            if (this.currentStudent.password == this.password) {
              this.isLogged.role = 3;
              this.isLogged.currId = this.login;
+             this.isLogged.currentSurname=this.currentStudent.surname;
+             this.isLogged.currentName=this.currentStudent.name;
            }
-         });
+         })
      }
-     if (this.login < 100) {
+     else if (this.login < 100) {
        this.http.getTeacherById(this.login)
          .subscribe(teacher => {
            this.currentTeacher = teacher;
@@ -52,14 +60,18 @@ export class PageComponent implements OnInit {
              this.isLogged.role = 2;
              this.isLogged.currName = this.currentTeacher.speciality;
              this.isLogged.currId = this.login;
+             this.isLogged.currentName=this.currentTeacher.name;
+             this.isLogged.currentSurname=this.currentTeacher.surname;
            }
          }); }
-       if (this.login.match("root")) {
+       else if (this.login.match("root")) {
          if (!(this.password.match("root") === null)) {
                this.isLogged.role = 1;
                this.isLogged.currId = this.login;
+               this.isLogged.currentName = "Администратор";
+           this.isLogged.currentSurname="";
              }
        }
-
+       else {alert("Неверный пароль. Проверьте правильность введенных данных")}
    }
 }

@@ -2,10 +2,8 @@
 <div style="text-align:center">
   <h1>
    FacultyWatcher
-    {{isLogged.role}}
-    {{isLogged.currId}}
-    {{isLogged.currName}}
   </h1>
+
 </div>
 
 <app-page
@@ -15,10 +13,29 @@
 
 <div
 >
-  <app-page-admin
-    *ngIf="(isLogged.role != 0)"
-  >
-  </app-page-admin>
+  <table width="100%" cellspacing="0" cellpadding="5">
+    <tr>
+      <td width="200" valign="top"><app-page-admin
+        *ngIf="(isLogged.role != 0)">
+
+      </app-page-admin></td>
+      <td valign="top">
+        <div *ngIf="(isLogged.role != 0)">
+          <br><br><br><br><br><br><br><br>
+          <h2>Здравствуйте, {{isLogged.currentName+" "+isLogged.currentSurname}} </h2>
+          <h3>Для того, чтобы воспользоваться функционалом приложения,
+              кликните на одну из функций в меню слева
+          </h3>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!--<app-page-admin-->
+    <!--*ngIf="(isLogged.role != 0)">-->
+
+  <!--</app-page-admin>-->
+
 
     <!--<app-page-teacher
       *ngIf="(isLogged.role == 2)"

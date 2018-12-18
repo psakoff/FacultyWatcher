@@ -42,7 +42,10 @@ export class PageAdminComponent implements OnInit {
   public attendancyById: attendancy[];
   modalRef: BsModalRef;
   private role: number;
-
+  private currentStudent: Student;
+    private currentTeacher: teacher;
+    private currentName:string;
+    private currentSurname: string;
   public oldPass: string;
   public newPass:string;
   public newPass2: string;
@@ -56,7 +59,25 @@ export class PageAdminComponent implements OnInit {
       .subscribe(lessons => this.lessons = lessons);
     this.isLogged.role = isLogged.role;
     this.isLogged.currId = isLogged.currId;
-  }
+    this.currentName=isLogged.currentName;
+    this.currentSurname=isLogged.currentSurname;
+  //   if(this.isLogged.currId<100){
+  //     http.getTeacherById(this.isLogged.currId)
+  //       .subscribe(currentTeacher =>{
+  //         this.currentTeacher = currentTeacher;
+  //         this.currentName=this.currentTeacher.name;
+  //         this.currentSurname = this.currentTeacher.surname
+  //         }
+  //       )
+  //   }
+  //   else { http.getStudentById(this.isLogged.currId)
+  //     .subscribe(currentStudent =>{
+  //         this.currentStudent = currentStudent;
+  //         this.currentName=this.currentStudent.name;
+  //         this.currentSurname = this.currentStudent.surname
+  //       }
+  //     )}
+   }
   @ViewChild('staticTabs') staticTabs: TabsetComponent;
 
   selectTab(tabId: number) {
@@ -100,7 +121,8 @@ export class PageAdminComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
   addStudent(): void {
- this.http.saveStudent(this.editableStudent).subscribe(()=>{this.modalRef.hide();this.refreshStudent();});
+ this.http.saveStudent(this.editableStudent).subscribe(()=>{this.modalRef.hide();this.refreshStudent();this.http.getStudents()
+   .subscribe(students => this.students = students);});
     this.modalRef.hide()
   }
   private refreshStudent(): void {
@@ -126,7 +148,8 @@ export class PageAdminComponent implements OnInit {
     this.editableAttendancy = null;
   }
   addTeacher(): void {
-    this.http.saveTeacher(this.editableTeacher).subscribe(()=>{this.modalRef.hide();this.refreshTeacher()});
+    this.http.saveTeacher(this.editableTeacher).subscribe(()=>{this.modalRef.hide();this.refreshTeacher();this.http.getTeachers()
+      .subscribe(teachers => this.teachers = teachers);});
     this.modalRef.hide();
   }
   saveAttendancyData(id:Student, name:string){
@@ -180,7 +203,8 @@ export class PageAdminComponent implements OnInit {
         .subscribe(lessonsByName => this.lessonsByName = lessonsByName);});
   }
   addLesson(): void {
-    this.http.saveLesson(this.editableLesson).subscribe(()=>{this.modalRef.hide();this.refreshLesson()});
+    this.http.saveLesson(this.editableLesson).subscribe(()=>{this.modalRef.hide();this.refreshLesson(); this.http.getLessons()
+      .subscribe(lessons => this.lessons = lessons);});
     this.modalRef.hide();
   }
   LookForStudent():void{
