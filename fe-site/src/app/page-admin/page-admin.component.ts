@@ -257,6 +257,8 @@ export class PageAdminComponent implements OnInit {
     this.isLogged.role = a;
     this.isLogged.currId=undefined;
     this.isLogged.currName=undefined;
+    this.isLogged.currentName = undefined;
+    this.isLogged.currentSurname = undefined;
     this.refreshData();
   }
   ngOnInit() {

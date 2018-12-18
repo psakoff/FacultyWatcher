@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AttendancyModel {
     @JsonProperty("student")
-    StudentModel student;
+    private StudentModel student;
     @JsonProperty("subject_id")
-    String subject_id;
+    private String subject_id;
     int hours;
 
     public AttendancyModel(){}
@@ -33,13 +33,6 @@ public class AttendancyModel {
         }
         public StudentModel getStudent(){return student;}
         public void setStudent(StudentModel student){this.student=student;}
-    @Override
-    public String toString() {
-        return "attendancy{" +
-                "Student=" + student.toString() +
-                ", subject_id='" + subject_id + '\'' +
-                ", hours='" + hours + '\'' +
-                '}';
-    }
+
 }
 

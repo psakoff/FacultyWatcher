@@ -69,7 +69,7 @@ public class TeacherServiceImpl implements TeacherService {
         return arepository.save(temp);
     }
 
-   // }
+
     @Override
     public Iterable<Attendancy> getAttendancyById(int studentId) {
 

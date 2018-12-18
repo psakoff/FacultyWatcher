@@ -90,11 +90,11 @@ public class Student {
                 Objects.equals(groupId, that.groupId);
     }
 
-//    @Override
-//    public int hashCode() {
-//
-//        return Objects.hash(id, name, surname, groupId);
-//    }
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, surname, groupId);
+    }
 
     @Override
     public String toString() {

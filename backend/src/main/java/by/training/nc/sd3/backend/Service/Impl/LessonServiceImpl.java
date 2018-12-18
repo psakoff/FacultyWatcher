@@ -29,21 +29,21 @@ public class LessonServiceImpl implements LessonService {
     }
     @Override
     public List<Lesson> getLessonsByGroup(int groupId) {
-        Iterable<Lesson> lessons = lessonRepository.findAll();
-        List<Lesson> CurrGroup= new ArrayList<>();
+        Iterable<Lesson> lessons = lessonRepository.getAllByGroupId(groupId);
+        List<Lesson> currGroup= new ArrayList<>();
         List<Lesson> sortedByTime;
-        lessons.forEach(lesson ->{if (lesson.getGroupId() == groupId)CurrGroup.add(lesson);});
-        sortedByTime = CurrGroup;
+        lessons.forEach(lesson ->{currGroup.add(lesson);});
+        sortedByTime = currGroup;
         sortedByTime.sort(Comparator.comparingInt(Lesson::getTime));
         return sortedByTime;
     }
     @Override
     public List<Lesson> getLessonsByName(String name) {
-        Iterable<Lesson> lessons = lessonRepository.findAll();
+        Iterable<Lesson> lessons = lessonRepository.getAllBySpeciality(name);
         List<Lesson> currName= new ArrayList<>();
         List<Lesson> sortedByTime;
 
-        lessons.forEach(lesson ->{if (lesson.getName().equals(name))currName.add(lesson);});
+        lessons.forEach(lesson ->{currName.add(lesson);});
         sortedByTime = currName;
         sortedByTime.sort(Comparator.comparingInt(Lesson::getTime));
         return sortedByTime;

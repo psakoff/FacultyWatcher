@@ -51,10 +51,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public List<Student> getStudentsbyGroupId(int groupId) {
-        Iterable<Student> students = repository.findAll();
-        List<Student> CurrGroup= new ArrayList<>();
-        students.forEach(student ->{if (student.getGroupId()==groupId)CurrGroup.add(student);});
-        return CurrGroup;
+        Iterable<Student> students = repository.getAllByGroupId(groupId);
+        List<Student> currGroup= new ArrayList<>();
+
+        students.forEach(student -> currGroup.add(student));
+        return currGroup;
     }
 
 

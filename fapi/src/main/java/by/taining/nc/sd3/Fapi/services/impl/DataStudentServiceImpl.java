@@ -49,16 +49,6 @@ public class DataStudentServiceImpl implements DataStudentService {
         return LessonModelResponse == null ? Collections.emptyList() : Arrays.asList(LessonModelResponse);
     }
 
-//    public List getAuthority() {
-//        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//    }
-//    public UserDetails loadUserByUsername(int id) throws UsernameNotFoundException {
-//        RestTemplate restTemplate = new RestTemplate();
-//        StudentModel user = restTemplate.getForObject(backendServerUrl + "/students/" + id, StudentModel.class);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("Invalid username or password.");
-//        }
-//        return new org.springframework.security.core.userdetails.User((""+user.getId()), user.getPassword(), getAuthority());
-//    }
+
 }
 

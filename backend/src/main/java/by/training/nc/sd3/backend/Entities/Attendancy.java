@@ -59,6 +59,7 @@ public class Attendancy implements Serializable{
     @Override
     public String toString() {
         return "attendancy{" +
+                "   Student=" + student +
                 ", subject_id='" + subject_id + '\'' +
                 ", hours='" + hours + '\'' +
                 '}';

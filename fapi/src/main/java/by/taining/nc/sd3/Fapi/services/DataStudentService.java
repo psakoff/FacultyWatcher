@@ -12,6 +12,4 @@ public interface DataStudentService {
     StudentModel saveStudent(StudentModel account);
     void deleteStudent(int id);
     List<StudentModel> getStudentsByGroupId(int groupId);
-//  List getAuthority();
-//    UserDetails loadUserByUsername(int id);
     }

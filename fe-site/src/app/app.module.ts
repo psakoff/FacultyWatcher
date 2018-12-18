@@ -9,8 +9,6 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import {BsDropdownModule, TabsModule} from "ngx-bootstrap";
 import { ModalModule } from 'ngx-bootstrap/modal';
 import {HttpService} from "./services/http.service";
-import { PageStudentComponent } from './page-student/page-student.component';
-import { PageTeacherComponent } from './page-teacher/page-teacher.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {IsLogged} from "./services/Logged";
@@ -20,8 +18,7 @@ import {IsLogged} from "./services/Logged";
     AppComponent,
     PageComponent,
     PageAdminComponent,
-    PageStudentComponent,
-    PageTeacherComponent
+  
 
   ],
   imports: [

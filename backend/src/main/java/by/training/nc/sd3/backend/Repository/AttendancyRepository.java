@@ -12,6 +12,4 @@ import java.util.List;
 @Repository
 public interface AttendancyRepository extends CrudRepository<Attendancy, Integer> {
     Iterable<Attendancy> getAttendancyByStudent_id(@Param("student_id")int student_id);
-    @Query(value = "INSERT into attendancy (student_id, subject_id,hours) VALUES (?1, ?2,?3)", nativeQuery = true)
-    void setAttendancy(int id, String name, int hours);
 }
