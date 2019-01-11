@@ -2,6 +2,6 @@ FacultyWatcher is the app for schedule viewing and attendance moderating. Admini
 Frontend - Angular2/TS + ngx-bootstrap
 Backend - Java/Spring
 DB - Spring Data + MySQL
-![Start state image](docs/LoginPage.png)
+![Login Page](docs/loginPage.png)
 
 
