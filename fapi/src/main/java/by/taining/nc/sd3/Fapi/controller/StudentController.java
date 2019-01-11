@@ -32,7 +32,7 @@ public class StudentController {
 
 //----------------------------------------------------------------------------------------------------------------------------------------------
 
-    @RequestMapping(value = "save/student",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "save/student",method = {RequestMethod.POST})
     public ResponseEntity<StudentModel> saveStudent(@RequestBody StudentModel student /*todo server validation*/) {
         if (student != null) {
             return ResponseEntity.ok(dataStudentService.saveStudent(student));

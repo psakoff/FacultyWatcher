@@ -54,7 +54,7 @@ public class LessonController {
         return service.getAllLessons();
     }
 
-    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/save",method = {RequestMethod.POST})
     public Lesson saveLesson(@RequestBody Lesson account) {
         Iterable<Lesson> lessons = service.getAllLessons();
         List<Lesson> CurrGroup= new ArrayList<>();

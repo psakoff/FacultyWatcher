@@ -42,7 +42,6 @@ public class LessonServiceImpl implements LessonService {
         Iterable<Lesson> lessons = lessonRepository.getAllBySpeciality(name);
         List<Lesson> currName= new ArrayList<>();
         List<Lesson> sortedByTime;
-
         lessons.forEach(lesson ->{currName.add(lesson);});
         sortedByTime = currName;
         sortedByTime.sort(Comparator.comparingInt(Lesson::getTime));

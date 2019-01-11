@@ -37,7 +37,7 @@ public class TeacherController {
         return service.getAllTeachers();
     }
 
-    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/save",method = {RequestMethod.POST})
     public Teacher saveTeacher(@RequestBody Teacher account) {
         return service.saveTeacher(account);
     }
@@ -48,7 +48,7 @@ public class TeacherController {
         service.deleteTeacher(id);
         return ResponseEntity.noContent().build();
     }
-    @RequestMapping(value = "/attendances",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/attendances",method = {RequestMethod.POST})
     public Attendancy setAttendancy(@RequestBody Attendancy account) {
         return service.setAttendancy(account);
     }

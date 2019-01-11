@@ -18,7 +18,7 @@ import {IsLogged} from "./services/Logged";
     AppComponent,
     PageComponent,
     PageAdminComponent,
-  
+
 
   ],
   imports: [

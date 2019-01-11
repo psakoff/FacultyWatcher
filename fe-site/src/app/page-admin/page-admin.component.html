@@ -10,15 +10,21 @@
         <li>
           <a (click)="openModal(template2);refreshData()">Размещение расписания</a>
         </li>
-        <div class="btn-group" dropdown>
-          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-            Регистрация участников <span class="caret"></span>
-          </button>
-          <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li role="menuitem"><a class="dropdown-item" (click)="openModal(template);refreshData()">Регистрация студента</a></li>
-            <li role="menuitem"><a class="dropdown-item" (click)="openModal(template1);refreshData()">Регистрация преподавателя</a></li>
-          </ul>
-        </div>
+        <li>
+          <a (click)="openModal(template);refreshData()">Регистрация студента</a>
+        </li>
+        <li>
+          <a (click)="openModal(template1);refreshData()">Регистрация преподавателя</a>
+        </li>
+        <!--<div class="btn-group" dropdown>-->
+          <!--<button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">-->
+            <!--Регистрация участников <span class="caret"></span>-->
+          <!--</button>-->
+          <!--<ul *dropdownMenu class="dropdown-menu" role="menu">-->
+            <!--<li role="menuitem"><a class="dropdown-item" (click)="openModal(template);refreshData()">Регистрация студента</a></li>-->
+            <!--<li role="menuitem"><a class="dropdown-item" (click)="openModal(template1);refreshData()">Регистрация преподавателя</a></li>-->
+          <!--</ul>-->
+        <!--</div>-->
         <li>
           <a (click)="openModal(template3);refreshData()">Личные дела</a>
         </li>
@@ -54,15 +60,21 @@
         <li>
           <a (click)="openModal(attendancyMod);refreshData();getLessonsBySpeciality(isLogged.currName)">Модерация посещаемости</a>
         </li>
-        <div class="btn-group" dropdown>
-          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-            Расписание<span class="caret"></span>
-          </button>
-          <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li role="menuitem"><a class="dropdown-item" (click)="refreshData();openModal(teacherschedule)">Расписание преподавателя</a></li>
-            <li role="menuitem"><a class="dropdown-item" (click)="openModal(groupschedule);refreshData()">Расписание группы</a></li>
-          </ul>
-        </div>
+        <li>
+          <a (click)="refreshData();openModal(teacherschedule)">Расписание преподавателя</a>
+        </li>
+        <li>
+          <a (click)="openModal(groupschedule);refreshData()">Расписание группы</a>
+        </li>
+        <!--<div class="btn-group" dropdown>-->
+          <!--<button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">-->
+            <!--Расписание<span class="caret"></span>-->
+          <!--</button>-->
+          <!--<ul *dropdownMenu class="dropdown-menu" role="menu">-->
+            <!--<li role="menuitem"><a class="dropdown-item" (click)="refreshData();openModal(teacherschedule)">Расписание преподавателя</a></li>-->
+            <!--<li role="menuitem"><a class="dropdown-item" (click)="openModal(groupschedule);refreshData()">Расписание группы</a></li>-->
+          <!--</ul>-->
+        <!--</div>-->
         <li>
           <a (click)="openModal(changePass);refreshData()">Аккаунт</a>
         </li>

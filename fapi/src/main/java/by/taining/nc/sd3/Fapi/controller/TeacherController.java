@@ -21,14 +21,14 @@ public class TeacherController {
         return ResponseEntity.ok(dataService.getAllTeachers());
     }
 
-    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/save",method = {RequestMethod.POST})
     public ResponseEntity<TeacherModel> saveTeacher(@RequestBody TeacherModel teacher /*todo server validation*/) {
         if (teacher != null) {
             return ResponseEntity.ok(dataService.saveTeacher(teacher));
         }
         return null;
     }
-    @RequestMapping(value = "/attendances",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/attendances",method = {RequestMethod.POST})
     public ResponseEntity<AttendancyModel> setAttendancy(@RequestBody AttendancyModel account /*todo server validation*/) {
         if (account != null) {
             return ResponseEntity.ok(dataService.setAttendancy(account));

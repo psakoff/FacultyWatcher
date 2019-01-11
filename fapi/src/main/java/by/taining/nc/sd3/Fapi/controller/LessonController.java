@@ -21,7 +21,7 @@ public class LessonController {
         return ResponseEntity.ok(dataService.getAllLessons());
     }
 
-    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/save",method = {RequestMethod.POST})
     public ResponseEntity<LessonModel> saveLesson(@RequestBody LessonModel lesson /*todo server validation*/) {
         if (lesson != null) {
             return ResponseEntity.ok(dataService.saveLesson(lesson));

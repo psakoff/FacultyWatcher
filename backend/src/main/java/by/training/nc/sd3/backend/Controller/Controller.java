@@ -44,7 +44,7 @@ public class Controller {
 
 
 
-    @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/save",method = {RequestMethod.POST})
     public Student saveStudent(@RequestBody Student account) {
         return service.saveStudent(account);
     }
